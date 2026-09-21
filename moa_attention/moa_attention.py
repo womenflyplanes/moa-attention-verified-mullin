@@ -1,4 +1,4 @@
-"""
+from __future__ import annotations
 MoA Attention PyTorch Wrapper — Verified minimal implementation
 Implements: MoA flow DNF -> ONF γ -> Machine Array -> Cost
 
