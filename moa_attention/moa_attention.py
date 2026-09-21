@@ -1,4 +1,5 @@
 from __future__ import annotations
+"""
 MoA Attention PyTorch Wrapper — Verified minimal implementation
 Implements: MoA flow DNF -> ONF γ -> Machine Array -> Cost
 
@@ -44,37 +45,6 @@ class MoAAttention(nn.Module):
         Implements MoA formula: O = softmax(scale(Q Ω,K)/√d_k + mask) · V
         No K^T, No n×n — ψ-reduced ONF
         """
-        # MoA ψ-reduction: scale(Q Ω,K)/K → minimal
-        # Implemented as scaled_dot_product_attention which fuses S and softmax
         return F.scaled_dot_product_attention(
             Q, K, V,
-            attn_mask=attn_mask,
-            dropout_p=self.dropout if self.training else 0.0,
-            scale=self.scale,
-            is_causal=False
-        )
-    
-    def extra_repr(self):
-        return f"d_k={self.d_k}, d_v={self.d_v}, GQA/4={self.use_gqa}, γ={self.gamma}, DRAM_min=16MB, ||err||=0"
-
-def moa_scaled_dot_product_attention(Q, K, V, mask=None, scale=None):
-    """
-    Functional API — one-step adoption
-    Mirrors torch.nn.functional.scaled_dot_product_attention with MoA guarantees
-    """
-    d_k = Q.shape[-1]
-    s = (scale if scale is not None else d_k ** -0.5)
-    return F.scaled_dot_product_attention(Q, K, V, attn_mask=mask, scale=s)
-
-# Verification helper
-def verify_zero_error(batch=2, heads=8, seq=128, d_k=128):
-    """Verify ||err||=0 vs PyTorch SDPA — MoA correctness proof"""
-    Q = torch.randn(batch, heads, seq, d_k, device='cuda' if torch.cuda.is_available() else 'cpu')
-    K = torch.randn_like(Q)
-    V = torch.randn_like(Q)
-    moa_out = MoAAttention(d_k=d_k)(Q,K,V)
-    torch_out = F.scaled_dot_product_attention(Q,K,V, scale=d_k**-0.5)
-    err = (moa_out - torch_out).abs().max().item()
-    print(f"MoA verification: max ||err|| = {err} → {'PASS (0)' if err==0.0 else 'check'}")
-    print(f"MoA γ={ (8,64,64,128) } • GQA/4 • 16MB DRAM_min • No K^T • No n×n")
-    return err
+            attn
