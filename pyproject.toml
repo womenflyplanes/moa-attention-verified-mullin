@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "moa-attention-verified"
+version = "0.1.0"
+description = "First attention kernel proven minimal BEFORE code was written — Mathematics of Arrays (MoA) — Green AI"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+authors = [{name = "Lenore Mullin", email = "lenore.mullin@womenflyplanes.org"}]
+keywords = ["attention", "MoA", "Mathematics of Arrays", "Green AI", "formal methods", "psi-calculus", "H100", "transformer"]
+classifiers = [
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = ["torch>=2.0"]
+
+[project.urls]
+Homepage = "https://github.com/womenflyplanes/moa-attention-verified-mullin"
+Repository = "https://github.com/womenflyplanes/moa-attention-verified-mullin"
+
+[tool.setuptools.packages.find]
+include = ["moa_attention*"]
