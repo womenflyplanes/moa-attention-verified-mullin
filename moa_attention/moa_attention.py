@@ -46,5 +46,8 @@ class MoAAttention(nn.Module):
         No K^T, No n×n — ψ-reduced ONF
         """
         return F.scaled_dot_product_attention(
-            Q, K, V,
-            attn
+    Q, K, V,
+    attn_mask=attn_mask,
+    dropout_p=0.0,
+    is_causal=False,
+)
