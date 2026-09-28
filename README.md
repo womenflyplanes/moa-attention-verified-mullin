@@ -10,7 +10,7 @@ By Lenore Mullin & Peilun Ju
 2. Paper II - Fused Kernels: Fused attention implementation  
 3. Paper III - CPU Verification: x86/ARM validation
 4. Paper IV - GPU Verification: GPU kernels & atomics
-5. Paper V - Real Hardware Validation: Submitted Sep 2026 - arXiv submit/8132497 [ON HOLD for moderation], HAL:05734881
+5. Paper V - Real Hardware Validation: Submitted Sep 2026 - arXiv submit/8132497 [ON HOLD for moderation], 
       - Title: Validating Memory-Optimal Transformer Kernels on Real Hardware: From Formal Derivation to Measured Performance Across Two HPC Clusters
 
 How to cite Paper V while on hold:
